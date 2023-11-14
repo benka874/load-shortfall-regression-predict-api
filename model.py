@@ -32,6 +32,7 @@ def _preprocess_data(data):
 
     NB: If you have utilised feature engineering/selection in order to create
     your final model you will need to define the code here.
+    
 
 
     Parameters
@@ -43,7 +44,29 @@ def _preprocess_data(data):
     -------
     Pandas DataFrame : <class 'pandas.core.frame.DataFrame'>
         The preprocessed data, ready to be used our model for prediction.
-    """
+            """
+    df_train=data
+#dealing with train data    
+    #df_train['Valencia_wind_deg']=df_train['Valencia_wind_deg'].str.extract('(\d+)')
+    #df_train['Seville_pressure']=df_train['Seville_pressure'].str.extract('(\d+)')
+    #df_train['Seville_pressure']=pd.to_numeric(df_train['Seville_pressure'])
+    #df_train['Valencia_wind_deg']=pd.to_numeric(df_train['Valencia_wind_deg'])
+
+# dealing with test data 
+    #df_test['Valencia_wind_deg']=df_test['Valencia_wind_deg'].str.extract('(\d+)')
+    #df_test['Seville_pressure']=df_test['Seville_pressure'].str.extract('(\d+)')
+    #df_test['Seville_pressure']=pd.to_numeric(df_test['Seville_pressure'])
+    #df_test['Valencia_wind_deg']=pd.to_numeric(df_test['Valencia_wind_deg'])
+
+# remove missing values/ features
+    #df_train['Valencia_pressure'] = df_train['Valencia_pressure'].fillna(df_train['Valencia_pressure'].mean())
+    #df_test['Valencia_pressure'] = df_test['Valencia_pressure'].fillna(df_test['Valencia_pressure'].mean())
+ 
+   #df_train['Month_of_year'] = df_train['time'].dt.month_name().str[:3]
+   
+    # create targets and features dataset
+    # engineer existing features
+
     # Convert the json string to a python dictionary object
     feature_vector_dict = json.loads(data)
     # Load the dictionary as a Pandas DataFrame.
@@ -58,7 +81,30 @@ def _preprocess_data(data):
     # ---------------------------------------------------------------
 
     # ----------- Replace this code with your own preprocessing steps --------
-    predict_vector = feature_vector_df[['Madrid_wind_speed','Bilbao_rain_1h','Valencia_wind_speed']]
+    predict_vector = feature_vector_df[[
+        'Madrid_wind_speed',  'Bilbao_rain_1h',
+       'Valencia_wind_speed', 'Seville_humidity', 'Madrid_humidity',
+       'Bilbao_clouds_all', 'Bilbao_wind_speed', 'Seville_clouds_all',
+       'Bilbao_wind_deg', 'Barcelona_wind_speed', 'Barcelona_wind_deg',
+       'Madrid_clouds_all', 'Seville_wind_speed', 'Barcelona_rain_1h',
+       #'Seville_pressure', 
+       'Seville_rain_1h', 'Bilbao_snow_3h',
+      #'Barcelona_pressure', 
+       'Seville_rain_3h', 'Madrid_rain_1h',
+       'Barcelona_rain_3h', 
+    #'Valencia_snow_3h', 
+       #'Madrid_weather_id',
+       #'Barcelona_weather_id', 'Bilbao_pressure', 'Seville_weather_id',
+       #'Valencia_pressure', #'Seville_temp_max', 
+       #'Madrid_pressure',
+       #'Valencia_temp_max',  'Bilbao_weather_id',
+       'Valencia_temp',
+       'Seville_temp', 'Valencia_humidity', 'Valencia_temp_min',
+       #'Barcelona_temp_max', 'Madrid_temp_max', 
+        'Barcelona_temp',
+       'Bilbao_temp_min', 'Bilbao_temp', #'Barcelona_temp_min',
+       #'Bilbao_temp_max', 'Seville_temp_min',  'Madrid_temp_min',
+        'Madrid_temp' ]]
     # ------------------------------------------------------------------------
 
     return predict_vector
